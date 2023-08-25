@@ -6,6 +6,37 @@ function LocationForm() {
   const [roomCount, setRoomCount] = useState(0);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {};
+    data.room_count = roomCount;
+    data.name = name;
+    data.city = city;
+    data.state = state;
+    console.log(data);
+
+    const locationUrl = "http://localhost:8000/api/locations/";
+    const fetchConfig = {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(locationUrl, fetchConfig);
+    if (response.ok) {
+      const newLocation = await response.json();
+      console.log(newLocation);
+
+      setName("");
+      setRoomCount("");
+      setCity("");
+      setState("");
+    }
+  };
   const handleNameChange = (event) => {
     const value = event.target.value;
     setName(value);
@@ -43,7 +74,7 @@ function LocationForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Create a new location</h1>
-          <form id="create-location-form">
+          <form onSubmit={handleSubmit} id="create-location-form">
             <div className="form-floating mb-3">
               <input
                 onChange={handleNameChange}
@@ -53,6 +84,7 @@ function LocationForm() {
                 id="name"
                 name="name"
                 className="form-control"
+                value={name}
               />
               <label forHtml="name">Name</label>
             </div>
@@ -65,6 +97,7 @@ function LocationForm() {
                 id="room_count"
                 name="room_count"
                 className="form-control"
+                value={roomCount}
               />
               <label forHtml="room_count">Room count</label>
             </div>
@@ -77,6 +110,7 @@ function LocationForm() {
                 id="city"
                 name="city"
                 className="form-control"
+                value={city}
               />
               <label forHtml="city">City</label>
             </div>
@@ -87,6 +121,7 @@ function LocationForm() {
                 id="state"
                 name="state"
                 className="form-select"
+                value={state}
               >
                 <option value="">Choose a state</option>
                 {states.map((state) => {
