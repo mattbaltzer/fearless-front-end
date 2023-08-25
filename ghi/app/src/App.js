@@ -4,6 +4,7 @@ import LocationForm from "./LocationForm.js";
 import ConferenceForm from "./ConferenceForm.js";
 import AttendeeForm from "./attend-conference.js";
 import PresentationForm from "./PresentationForm.js";
+import MainPage from "./MainPage.js";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App(props) {
@@ -29,6 +30,7 @@ function App(props) {
 						path="presentations/new"
 						element={<PresentationForm />}
 					/>
+					<Route index element={<MainPage />} />
 				</Routes>
 				{/* <AttendeeForm /> */}
 				{/* <ConferenceForm /> */}
