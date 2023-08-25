@@ -3,9 +3,24 @@ import React, { useEffect, useState } from "react";
 function LocationForm() {
   const [states, setStates] = useState([]);
   const [name, setName] = useState("");
+  const [roomCount, setRoomCount] = useState(0);
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
   const handleNameChange = (event) => {
     const value = event.target.value;
     setName(value);
+  };
+  const handleRoomCountChange = (event) => {
+    const value = event.target.value;
+    setRoomCount(value);
+  };
+  const handleCityChange = (event) => {
+    const value = event.target.value;
+    setCity(value);
+  };
+  const handleStateChange = (event) => {
+    const value = event.target.value;
+    setState(value);
   };
 
   const fetchData = async () => {
@@ -43,6 +58,7 @@ function LocationForm() {
             </div>
             <div className="form-floating mb-3">
               <input
+                onChange={handleRoomCountChange}
                 placeholder="Room count"
                 required
                 type="number"
@@ -54,6 +70,7 @@ function LocationForm() {
             </div>
             <div className="form-floating mb-3">
               <input
+                onChange={handleCityChange}
                 placeholder="City"
                 required
                 type="text"
@@ -64,7 +81,13 @@ function LocationForm() {
               <label forHtml="city">City</label>
             </div>
             <div className="mb-3">
-              <select required id="state" name="state" className="form-select">
+              <select
+                onChange={handleStateChange}
+                required
+                id="state"
+                name="state"
+                className="form-select"
+              >
                 <option value="">Choose a state</option>
                 {states.map((state) => {
                   return (
