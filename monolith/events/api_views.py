@@ -44,6 +44,7 @@ class ConferenceDetailEncoder(ModelEncoder):
         "created",
         "updated",
         "location",
+        "id",
     ]
     encoders = {
         "location": LocationListEncoder(),
